@@ -11,7 +11,7 @@
         android:id="@+id/txtSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
+        android:text="Contact Details"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -21,106 +21,122 @@
 
     <TextView
         android:id="@+id/txtsignupSub"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter your credentials to continue"
+        android:text="Provide contact details for easy delivery"
         app:layout_constraintTop_toBottomOf="@id/txtSignup"
         app:layout_constraintStart_toStartOf="@id/txtSignup"
+        app:layout_constraintEnd_toEndOf="parent"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="16sp"
         android:layout_marginTop="4dp"/>
 
-
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtFname"
-        android:layout_width="0dp"
+        android:id="@+id/txtPhone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/CustomOutlinedBox"
-        android:hint="First Name"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="2dp"
+        style="@style/CustomOutlinedBox"
+        android:hint="Phone No"
+        app:layout_constraintTop_toBottomOf="@id/txtsignupSub"
         app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
         app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
         app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
-        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius"
-        app:layout_constraintTop_toBottomOf="@id/txtsignupSub"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/txtLname">
+        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius">
         <EditText
-            android:id="@+id/edtFname"
+            android:id="@+id/edtPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:maxLength="40"
-            android:maxLines="1" />
+            android:inputType="phone"
+            android:maxLength="15" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtLname"
+        android:id="@+id/txtCity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/CustomOutlinedBox"
-        android:hint="Last Name"
-        app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
-        app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
-        app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
-        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius"
-        app:layout_constraintTop_toTopOf="@id/txtFname"
-        app:layout_constraintStart_toEndOf="@id/txtFname"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="2dp">
-        <EditText
-            android:id="@+id/edtLname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:maxLength="40"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/CustomOutlinedBox"
-        android:hint="Email"
+        android:hint="City"
         android:layout_marginTop="10dp"
         app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
         app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
         app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
         app:boxCornerRadiusTopStart="@dimen/box_cnr_radius"
-        app:layout_constraintTop_toBottomOf="@id/txtFname">
+        app:layout_constraintTop_toBottomOf="@id/txtPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
         <EditText
-            android:id="@+id/edtEmail"
+            android:id="@+id/edtCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:maxLength="40"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtPassword"
+        android:id="@+id/txtStreet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/CustomOutlinedBox"
-        android:hint="Password"
+        android:hint="Street"
         android:layout_marginTop="10dp"
-        app:endIconMode="password_toggle"
         app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
         app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
         app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
         app:boxCornerRadiusTopStart="@dimen/box_cnr_radius"
-        app:layout_constraintTop_toBottomOf="@id/txtEmail">
+        app:layout_constraintTop_toBottomOf="@id/txtCity">
         <EditText
-            android:id="@+id/edtPassword"
+            android:id="@+id/edtStreet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-            android:maxLength="18"
+            android:inputType="text"
+            android:maxLength="40"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtHouseNo"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        style="@style/CustomOutlinedBox"
+        android:hint="House No"
+        android:layout_marginTop="10dp"
+        app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
+        app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
+        app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
+        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius"
+        app:layout_constraintTop_toBottomOf="@id/txtStreet"
+        app:layout_constraintStart_toStartOf="parent">
+        <EditText
+            android:id="@+id/edtHouseNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:maxLength="4"
             android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtZipcode"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        style="@style/CustomOutlinedBox"
+        android:hint="Zip Code"
+        app:layout_constraintTop_toTopOf="@id/txtHouseNo"
+        app:layout_constraintStart_toEndOf="@id/txtHouseNo"
+        android:layout_marginStart="10dp"
+        app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
+        app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
+        app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
+        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius">
+        <EditText
+            android:id="@+id/edtZipcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="15" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -130,21 +146,14 @@
         android:layout_marginTop="10dp"
         style="@style/CustomOutlinedBox"
         android:hint="Username"
-        app:layout_constraintTop_toBottomOf="@id/txtPassword"
+        app:layout_constraintTop_toBottomOf="@id/txtPhone"
         app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
         app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
         app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
-        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius">
-        <EditText
-            android:id="@+id/edtUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="15" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSignup"
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -152,13 +161,13 @@
         android:layout_marginEnd="40dp"
         android:paddingTop="@dimen/btn_padding"
         android:paddingBottom="@dimen/btn_padding"
-        android:text="Sign up"
+        android:text="Submit"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius="16dp"
-        app:layout_constraintTop_toBottomOf="@id/txtUsername"
+        app:layout_constraintTop_toBottomOf="@id/txtZipcode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="475dp" />

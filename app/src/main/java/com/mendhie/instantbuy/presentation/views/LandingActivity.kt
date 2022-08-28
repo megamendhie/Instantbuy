@@ -12,7 +12,6 @@ import com.mendhie.instantbuy.R
 import com.mendhie.instantbuy.databinding.ActivityLandingBinding
 import com.mendhie.instantbuy.presentation.adapters.ViewPagerAdapter
 import com.mendhie.instantbuy.presentation.manager.IntroductionManager
-import kotlinx.android.synthetic.main.activity_landing.*
 
 class LandingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLandingBinding
@@ -34,9 +33,9 @@ class LandingActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             val current = getItem(+1)
             if (current < layouts.size) {
-                viewPager!!.currentItem = current
+                binding.viewPager.currentItem = current
             } else {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
         }
@@ -63,13 +62,13 @@ class LandingActivity : AppCompatActivity() {
         val dots = arrayOfNulls<TextView>(layouts.size)
         val colorActive = resources.getColor(R.color.purple_500)
         val colorInactive = resources.getColor(R.color.inactive);
-        lnrDots.removeAllViews()
+        binding.lnrDots.removeAllViews()
         for (mdots in dots.indices) {
             dots[mdots] = TextView(this)
             dots[mdots]!!.text  = Html.fromHtml("&#8226;")
             dots[mdots]!!.textSize = 45f
             dots[mdots]!!.setTextColor(colorInactive)
-            lnrDots.addView(dots[mdots])
+            binding.lnrDots.addView(dots[mdots])
         }
         if (dots.size > 0) {
             dots[position]!!.setTextColor(colorActive)

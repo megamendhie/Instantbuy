@@ -4,20 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="24dp"
     tools:context=".presentation.views.LoginActivity">
 
     <TextView
+        android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="120dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <TextView
+        android:id="@+id/txtLoginSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your username and password"
+        app:layout_constraintTop_toBottomOf="@id/txtLogin"
+        app:layout_constraintStart_toStartOf="@id/txtLogin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"/>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomOutlinedBox"
+        android:hint="Username"
+        android:layout_marginTop="40dp"
+        app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
+        app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
+        app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
+        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius"
+        app:layout_constraintTop_toBottomOf="@id/txtLoginSub">
+        <EditText
+            android:id="@+id/edtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLength="40"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomOutlinedBox"
+        android:hint="Password"
+        android:layout_marginTop="10dp"
+        app:endIconMode="password_toggle"
+        app:boxCornerRadiusBottomEnd="@dimen/box_cnr_radius"
+        app:boxCornerRadiusBottomStart="@dimen/box_cnr_radius"
+        app:boxCornerRadiusTopEnd="@dimen/box_cnr_radius"
+        app:boxCornerRadiusTopStart="@dimen/box_cnr_radius"
+        app:layout_constraintTop_toBottomOf="@id/txtUsername">
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890#$@_"
+            android:maxLength="18"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtForgetPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forget password?"
+        app:layout_constraintTop_toBottomOf="@id/txtPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintTop_toBottomOf="@id/txtForgetPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="16sp"
+        app:cornerRadius="16dp"
+        android:paddingTop="@dimen/btn_padding"
+        android:paddingBottom="@dimen/btn_padding"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:text="Login"/>
+
+    <TextView
+        android:id="@+id/txtSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account? Signup"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
