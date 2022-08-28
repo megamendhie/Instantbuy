@@ -2,11 +2,13 @@ package com.mendhie.instantbuy.data.models
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "user_table")
 data class User(
     @Embedded val address: Address,
+    @PrimaryKey
     val id: Int,
     val email: String,
     val username: String,
@@ -42,7 +44,7 @@ data class Geolocation(
 )
 
 data class Address(
-    val geolocation: Geolocation,
+    @Embedded val geolocation: Geolocation,
     val city: String,
     val street: String,
     val number: Int,

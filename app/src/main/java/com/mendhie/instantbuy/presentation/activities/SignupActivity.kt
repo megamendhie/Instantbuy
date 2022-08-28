@@ -9,6 +9,7 @@ import com.mendhie.instantbuy.data.models.*
 import com.mendhie.instantbuy.data.remote.StoreApi
 import com.mendhie.instantbuy.databinding.ActivitySignup2Binding
 import com.mendhie.instantbuy.databinding.ActivitySignupBinding
+import com.mendhie.instantbuy.presentation.manager.IntroductionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -101,7 +102,10 @@ class SignupActivity : AppCompatActivity() {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 //binding.btnLogin.isEnabled = true
                 if(response.code()==200){
+                    val introManager = IntroductionManager(this@SignupActivity)
+                    introManager.setSignup(true)
                     Log.i(TAG, "onResponse:200 auth- ${response.body()}")
+                    Toast.makeText(this@SignupActivity, "Signup Successful", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@SignupActivity, MainActivity::class.java))
                     finish()
                 }

@@ -12,6 +12,7 @@ import com.mendhie.instantbuy.data.models.Prod
 import com.mendhie.instantbuy.data.remote.StoreApi
 import com.mendhie.instantbuy.databinding.FragmentCartBinding
 import com.mendhie.instantbuy.presentation.adapters.CartAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mendhie.instantbuy.databinding.FragmentHomeBinding
 import com.mendhie.instantbuy.presentation.adapters.CategoriesAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding

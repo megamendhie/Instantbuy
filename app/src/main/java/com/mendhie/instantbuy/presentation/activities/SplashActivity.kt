@@ -19,8 +19,10 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         else if(introManager.check())
             startActivity(Intent(this, LoginActivity::class.java))
-        else
+        else {
+            introManager.setFirst(true)
             startActivity(Intent(this, LandingActivity::class.java))
+        }
         finish()
     }
 }

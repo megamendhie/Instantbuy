@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.mendhie.instantbuy.data.models.LoginAuth
 import com.mendhie.instantbuy.data.models.LoginDetails
 import com.mendhie.instantbuy.data.remote.StoreApi
 import com.mendhie.instantbuy.databinding.ActivityLoginBinding
+import com.mendhie.instantbuy.presentation.manager.IntroductionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,8 +25,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnLogin.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            //login()
+            login()
         }
         binding.txtSignup.setOnClickListener {
             startActivityForResult(Intent(this, SignupActivity::class.java), REQ_CODE)
@@ -32,6 +33,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login(){
+        val introManager = IntroductionManager(this)
+        if(!introManager.signup()){
+            Snackbar.make(binding.txtSignup, "Signup first", Snackbar.LENGTH_LONG).show()
+            return
+        }
         val username = binding.edtUsername.text.toString()
         val password = binding.edtPassword.text.toString()
 

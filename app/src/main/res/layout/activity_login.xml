@@ -8,6 +8,14 @@
     tools:context=".presentation.activities.LoginActivity">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="12sp"
+        android:text="For the purpose of testing, use these login details\nusername: kevinryan\npassword: kev02937@"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+    <TextView
         android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
