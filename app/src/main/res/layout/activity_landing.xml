@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:backgroundTint="#FFFFFF"
-    tools:context=".presentation.views.LandingActivity">
+    tools:context=".presentation.activities.LandingActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
