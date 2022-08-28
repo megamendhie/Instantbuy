@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navHome">
+    <fragment
+        android:id="@+id/navHome"
+        android:name="com.mendhie.instantbuy.presentation.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navCart"
+        android:name="com.mendhie.instantbuy.presentation.fragments.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/navAccount"
+        android:name="com.mendhie.instantbuy.presentation.fragments.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_cart" />
+</navigation>
