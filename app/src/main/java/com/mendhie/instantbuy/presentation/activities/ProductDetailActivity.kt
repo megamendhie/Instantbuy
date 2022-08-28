@@ -1,4 +1,4 @@
-package com.mendhie.instantbuy.presentation.views
+package com.mendhie.instantbuy.presentation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

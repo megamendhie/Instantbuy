@@ -1,4 +1,4 @@
-package com.mendhie.instantbuy.presentation.views
+package com.mendhie.instantbuy.presentation.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +15,10 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val introManager = IntroductionManager(this)
-        if(introManager.check())
+        if(introManager.signup() && introManager.login())
             startActivity(Intent(this, MainActivity::class.java))
+        else if(introManager.check())
+            startActivity(Intent(this, LoginActivity::class.java))
         else
             startActivity(Intent(this, LandingActivity::class.java))
         finish()

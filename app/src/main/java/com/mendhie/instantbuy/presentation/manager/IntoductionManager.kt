@@ -9,13 +9,27 @@ class IntroductionManager(context: Context) {
         Context.MODE_PRIVATE)
 
     private var editor: SharedPreferences.Editor = pref.edit()
+
     fun setFirst(isFirst: Boolean) {
         editor.putBoolean("check", isFirst)
         editor.apply()
     }
 
-    fun check(): Boolean {
-        return pref.getBoolean("check", false)
+    fun check(): Boolean = pref.getBoolean("check", false)
+
+    fun setLogin(isLogin: Boolean){
+        editor.putBoolean("login", isLogin)
+        editor.apply()
     }
+
+    fun login(): Boolean = pref.getBoolean("login", false)
+
+
+    fun setSignup(isLogin: Boolean){
+        editor.putBoolean("signup", isLogin)
+        editor.apply()
+    }
+
+    fun signup(): Boolean = pref.getBoolean("signup", false)
 
 }

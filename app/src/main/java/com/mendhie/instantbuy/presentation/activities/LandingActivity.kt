@@ -1,8 +1,7 @@
-package com.mendhie.instantbuy.presentation.views
+package com.mendhie.instantbuy.presentation.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html

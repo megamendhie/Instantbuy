@@ -1,4 +1,4 @@
-package com.mendhie.instantbuy.presentation.views
+package com.mendhie.instantbuy.presentation.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +22,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.btnLogin.setOnClickListener { login() }
+        binding.btnLogin.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            //login()
+        }
         binding.txtSignup.setOnClickListener {
             startActivityForResult(Intent(this, SignupActivity::class.java), REQ_CODE)
         }
