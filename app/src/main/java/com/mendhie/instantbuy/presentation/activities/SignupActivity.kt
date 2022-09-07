@@ -5,21 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.mendhie.instantbuy.data.models.*
-import com.mendhie.instantbuy.data.remote.StoreApi
 import com.mendhie.instantbuy.databinding.ActivitySignup2Binding
 import com.mendhie.instantbuy.databinding.ActivitySignupBinding
+import com.mendhie.instantbuy.domain.viewmodels.UserViewModel
 import com.mendhie.instantbuy.presentation.manager.IntroductionManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SignupActivity : AppCompatActivity() {
     private val TAG = "SignupAct"
     private var signup = false
     private lateinit var user: UserShort
     private lateinit var binding: ActivitySignupBinding
     private lateinit var binding2: ActivitySignup2Binding
+    private val viewModel: UserViewModel by viewModels()
+    @Inject lateinit var introManager: IntroductionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,8 @@ class SignupActivity : AppCompatActivity() {
 
         binding.btnSignup.setOnClickListener {signup() }
         binding2.btnSubmit.setOnClickListener { submit() }
+
+        viewModel.userResponse.observe(this, { user -> updateStatus(user) })
     }
 
     fun signup(){
@@ -96,40 +101,24 @@ class SignupActivity : AppCompatActivity() {
 
         val address = Address(Geolocation("0","0"), city, street, number.toInt(), zip)
         val userFull = UserFull(address, user.email, user.username, user.password, user.name, phone)
+        viewModel.signup(userFull)
+    }
 
-        StoreApi.storeApi.createUser(userFull).enqueue(object :
-            Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                //binding.btnLogin.isEnabled = true
-                if(response.code()==200){
-                    val introManager = IntroductionManager(this@SignupActivity)
-                    introManager.setSignup(true)
-                    Log.i(TAG, "onResponse:200 auth- ${response.body()}")
-                    Toast.makeText(this@SignupActivity, "Signup Successful", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@SignupActivity, MainActivity::class.java))
-                    finish()
-                }
-
-                else if(response.code()==401){
-                    Log.i(TAG, "onResponse:401 auth- ${response.body()}")
-                    Toast.makeText(
-                        this@SignupActivity,
-                        "Incorrect username or password",
-                        Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                //binding.btnLogin.isEnabled = true
-                Log.d(TAG, "onFailure: ${t.localizedMessage}")
-                Toast.makeText(
-                    this@SignupActivity,
-                    "Error occured: ${t.localizedMessage}",
-                    Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
+    private fun updateStatus(user: UserResponse) {
+        if(user.code == 200){
+            introManager.setSignup(true)
+            Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+            Log.i(TAG, "updateStatus: $user")
+            finish()
+        }
+        else{
+            Log.i(TAG, "updateStatus: $user")
+            Toast.makeText(this,
+                "${user.message}",
+                Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
     override fun onBackPressed() {
