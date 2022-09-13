@@ -4,21 +4,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mendhie.instantbuy.R
 import com.mendhie.instantbuy.data.models.Product
-import com.mendhie.instantbuy.data.remote.StoreApi
 import com.mendhie.instantbuy.databinding.ActivityCategoryBinding
+import com.mendhie.instantbuy.domain.viewmodels.ProductViewModel
 import com.mendhie.instantbuy.presentation.adapters.ProductsAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class CategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoryBinding
     private lateinit var adapter: ProductsAdapter
-    private val TAG = "CategoryAct"
+    private val _tag = "CategoryAct"
+    private val viewModel: ProductViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,29 +45,17 @@ class CategoryActivity : AppCompatActivity() {
         getProducts()
     }
 
-
-    fun getProducts(){
-        var category: String = intent.getStringExtra("CATEGORY").toString()
-        Log.i(TAG, "getProducts: category- $category")
-        StoreApi.storeApi.getProducts(category).enqueue(object : Callback<List<Product>>{
-            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
-                Log.i(TAG, "onResponse: ${response.body()}")
-                updateProducts(response.body()!!)
-            }
-
-            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-                Log.d(TAG, "onFailure: ${t.localizedMessage}")
-            }
-        })
-        category = category.replace(" ", "%20")
-        Log.i(TAG, "getProducts: category- $category")
+    private fun getProducts(){
+        val category: String = intent.getStringExtra("CATEGORY").toString()
+        Log.i(_tag, "getProducts: category- $category")
+        viewModel.getProducts(category).observe(this, {products -> updateProducts(products)})
     }
 
-    fun updateProducts(products: List<Product>){
+    private fun updateProducts(products: List<Product>){
         adapter.updateProducts(products)
     }
 
-    fun setIconImage(name: String){
+    private fun setIconImage(name: String){
         when(name){
             "electronics" -> binding.imgHome.setImageResource(R.drawable.px_electronics)
             "jewelery" -> binding.imgHome.setImageResource(R.drawable.px_jewelry)

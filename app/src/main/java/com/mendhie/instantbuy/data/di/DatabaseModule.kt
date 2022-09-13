@@ -12,7 +12,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
@@ -24,7 +23,6 @@ class DatabaseModule {
             .fallbackToDestructiveMigration()
             .addCallback(callback)
             .build()
-        //*785#
 
     @Singleton
     @Provides

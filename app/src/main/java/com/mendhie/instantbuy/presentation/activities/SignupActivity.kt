@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignupActivity : AppCompatActivity() {
-    private val TAG = "SignupAct"
+    private val tag = "SignupAct"
     private var signup = false
     private lateinit var user: UserShort
     private lateinit var binding: ActivitySignupBinding
@@ -36,7 +36,7 @@ class SignupActivity : AppCompatActivity() {
         viewModel.userResponse.observe(this, { user -> updateStatus(user) })
     }
 
-    fun signup(){
+    private fun signup(){
         val fName = binding.edtFname.text.toString()
         val lName = binding.edtLname.text.toString()
         val email = binding.edtEmail.text.toString()
@@ -71,7 +71,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding2.root)
     }
 
-    fun submit(){
+    private fun submit(){
         val phone = binding2.edtPhone.text.toString()
         val city = binding2.edtCity.text.toString()
         val street = binding2.edtStreet.text.toString()
@@ -99,7 +99,7 @@ class SignupActivity : AppCompatActivity() {
             return
         }
 
-        val address = Address(Geolocation("0","0"), city, street, number.toInt(), zip)
+        val address = AddressFull(Geolocation("0","0"), city, street, number.toInt(), zip)
         val userFull = UserFull(address, user.email, user.username, user.password, user.name, phone)
         viewModel.signup(userFull)
     }
@@ -107,23 +107,23 @@ class SignupActivity : AppCompatActivity() {
     private fun updateStatus(user: UserResponse) {
         if(user.code == 200){
             introManager.setSignup(true)
+            introManager.setLogin(true)
             Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))
-            Log.i(TAG, "updateStatus: $user")
+            Log.i(tag, "updateStatus: $user")
             finish()
         }
         else{
-            Log.i(TAG, "updateStatus: $user")
+            Log.i(tag, "updateStatus: $user")
             Toast.makeText(this,
-                "${user.message}",
+                user.message,
                 Toast.LENGTH_SHORT)
                 .show()
         }
     }
 
     override fun onBackPressed() {
-        if(signup){}
-        else {
+        if(!signup){
             super.onBackPressed()
             finish()
         }

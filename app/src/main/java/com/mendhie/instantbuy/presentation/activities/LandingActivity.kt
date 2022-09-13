@@ -10,7 +10,6 @@ import androidx.viewpager.widget.ViewPager
 import com.mendhie.instantbuy.R
 import com.mendhie.instantbuy.databinding.ActivityLandingBinding
 import com.mendhie.instantbuy.presentation.adapters.ViewPagerAdapter
-import com.mendhie.instantbuy.presentation.manager.IntroductionManager
 
 class LandingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLandingBinding
@@ -20,9 +19,6 @@ class LandingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val introManager = IntroductionManager(this)
-        introManager.setFirst(false)
 
         layouts = intArrayOf(R.layout.slide_1, R.layout.slide_2, R.layout.slide_3)
         addBottomDots(0)

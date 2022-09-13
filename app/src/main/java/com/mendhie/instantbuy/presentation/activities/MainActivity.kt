@@ -8,6 +8,7 @@ import com.mendhie.instantbuy.R
 import com.mendhie.instantbuy.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 

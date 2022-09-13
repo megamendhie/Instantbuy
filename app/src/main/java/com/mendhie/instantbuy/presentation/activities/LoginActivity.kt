@@ -5,20 +5,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
-import com.mendhie.instantbuy.data.models.LoginAuth
 import com.mendhie.instantbuy.data.models.LoginDetails
-import com.mendhie.instantbuy.data.remote.StoreApi
+import com.mendhie.instantbuy.data.models.LoginResponse
 import com.mendhie.instantbuy.databinding.ActivityLoginBinding
+import com.mendhie.instantbuy.domain.viewmodels.UserViewModel
 import com.mendhie.instantbuy.presentation.manager.IntroductionManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val TAG = "LoginAct"
-    private val REQ_CODE = 412
+    private val tag = "LoginAct"
+    private val reqCode = 412
+    private val viewModel: UserViewModel by viewModels()
+    @Inject lateinit var introManager: IntroductionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +31,27 @@ class LoginActivity : AppCompatActivity() {
             login()
         }
         binding.txtSignup.setOnClickListener {
-            startActivityForResult(Intent(this, SignupActivity::class.java), REQ_CODE)
+            startActivityForResult(Intent(this, SignupActivity::class.java), reqCode)
+        }
+
+        viewModel.loginResponse.observe(this, { loginResponse -> updateStatus(loginResponse) })
+    }
+
+    private fun updateStatus(loginResponse: LoginResponse) {
+        binding.btnLogin.isEnabled = true
+        if(loginResponse.code==200){
+            introManager.setLogin(true)
+            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+        else{
+            Log.i(tag, "onResponse:401 auth- $loginResponse")
+            Toast.makeText(this, "${loginResponse.code}: ${loginResponse.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun login(){
-        val introManager = IntroductionManager(this)
+    private fun login(){
         if(!introManager.signup()){
             Snackbar.make(binding.txtSignup, "Signup first", Snackbar.LENGTH_LONG).show()
             return
@@ -50,41 +68,12 @@ class LoginActivity : AppCompatActivity() {
             return
         }
         binding.btnLogin.isEnabled = false
-
-        StoreApi.storeApi.login(LoginDetails(username, password)).enqueue(object :
-            Callback<LoginAuth> {
-            override fun onResponse(call: Call<LoginAuth>, response: Response<LoginAuth>) {
-                binding.btnLogin.isEnabled = true
-                if(response.code()==200 && !response.body()!!.token.isEmpty()){
-                    Log.i(TAG, "onResponse:200 auth- ${response.body()}")
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
-                }
-                else if(response.code()==401){
-                    Log.i(TAG, "onResponse:401 auth- ${response.body()}")
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "Incorrect username or password",
-                        Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-
-            override fun onFailure(call: Call<LoginAuth>, t: Throwable) {
-                binding.btnLogin.isEnabled = true
-                Log.d(TAG, "onFailure: ${t.localizedMessage}")
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Error occured: ${t.localizedMessage}",
-                    Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
+        viewModel.login(LoginDetails(username, password))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==REQ_CODE&&resultCode== RESULT_OK)
+        if(requestCode==reqCode&&resultCode== RESULT_OK)
             finish()
     }
 }
