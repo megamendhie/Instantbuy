@@ -1,17 +1,19 @@
 package com.mendhie.instantbuy.data.models
 
-data class Products(
-    val products: List<Product>
-)
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "product_table")
 data class Product(
+    @PrimaryKey
     val id: String,
     val title: String,
     val price: Double,
     val description: String,
     val category: String,
     val image: String,
-    val rating: rating
+    @Embedded val rating: rating
 )
 
 data class rating(
